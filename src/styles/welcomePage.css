@@ -1,128 +1,146 @@
-/* Background */
-.welcome-container {
-  width: 100vw;
-  height: 100vh;
-  background: linear-gradient(135deg, #4f46e5, #6366f1, #818cf8);
+/* Import a clean modern font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+
+.welcome-wrapper {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
+  height: 100vh;
+  width: 100vw;
+  font-family: 'Inter', sans-serif;
   overflow: hidden;
-  padding: 20px;
+  background-color: #ffffff;
 }
 
-/* Floating Shapes */
-.shape {
-  position: absolute;
-  border-radius: 50%;
-  opacity: 0.35;
-  animation: float 6s infinite ease-in-out;
-}
-
-.shape1 {
-  width: 180px;
-  height: 180px;
-  background: #ffffff;
-  top: 10%;
-  left: 5%;
-}
-
-.shape2 {
-  width: 250px;
-  height: 250px;
-  background: #a5b4fc;
-  bottom: 15%;
-  right: 10%;
-  animation-duration: 7s;
-}
-
-.shape3 {
-  width: 120px;
-  height: 120px;
-  background: #c7d2fe;
-  top: 40%;
-  right: 30%;
-  animation-duration: 5s;
-}
-
-@keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-25px); }
-  100% { transform: translateY(0px); }
-}
-
-/* Card */
-.welcome-card {
-  background: white;
-  padding: 50px 40px;
-  width: 70%;
-  max-width: 650px;
-  border-radius: 22px;
-  text-align: center;
-  position: relative;
+/* LEFT SIDE */
+.welcome-left {
+  flex: 0.8; /* Adjusts width relative to the right side */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 5%;
   z-index: 2;
-  box-shadow: 0px 15px 25px rgba(0,0,0,0.15);
-  animation: fadeIn 1.2s ease-out;
-  backdrop-filter: blur(12px);
-
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(40px); }
-  to { opacity: 1; transform: translateY(0); }
+.welcome-content {
+  max-width: 550px;
 }
 
 .title {
-  font-size: 2.7rem;
-  color: #2d2e2f;
-  font-weight: 700;
+  font-size: 4rem;
+  font-weight: 800;
+  color: #1a1a1a;
+  line-height: 1;
+  letter-spacing: -2px;
+  margin-bottom: 24px;
 }
 
 .title span {
-  color: #4f46e5;
+  color: #2563eb; /* The Blue from your logo/UI */
 }
 
 .subtitle {
-  margin-top: 15px;
   font-size: 1.15rem;
-  color: #555;
-  line-height: 1.6;
+  color: #4b5563;
+  line-height: 1.7;
+  margin-bottom: 40px;
 }
 
-/* Buttons */
+/* BUTTONS */
 .btn-group {
-  margin-top: 35px;
   display: flex;
-  justify-content: center;
-  gap: 20px;
+  gap: 15px;
 }
 
 .welcome-btn {
-  padding: 12px 26px;
-  font-size: 1rem;
-  border-radius: 50px;
+  padding: 16px 32px;
+  border-radius: 12px;
   text-decoration: none;
-  transition: 0.3s;
   font-weight: 600;
+  transition: all 0.2s ease-in-out;
 }
 
 .login-btn {
-  background: #4f46e5;
-  color: white;
+  background-color: #ffcc4d; /* Yellow from your screenshot */
+  color: #1a1a1a;
+  box-shadow: 0 10px 15px -3px rgba(255, 204, 77, 0.3);
 }
 
 .login-btn:hover {
-  background: #4338ca;
+  transform: translateY(-3px);
+  box-shadow: 0 15px 20px -3px rgba(255, 204, 77, 0.4);
 }
 
 .explore-btn {
-  background: white;
-  border: 2px solid #4f46e5;
-  color: #4f46e5;
+  border: 2px solid #e5e7eb;
+  color: #374151;
 }
 
 .explore-btn:hover {
-  background: #4f46e5;
-  color: white;
+  background-color: #f9fafb;
+  border-color: #d1d5db;
 }
 
+/* RIGHT SIDE (Filling the empty space) */
+.welcome-right {
+  flex: 1.2;
+  display: flex;
+  position: relative;
+}
+
+/* The blue stripe between sides */
+.image-accent-bar {
+  width: 80px;
+  background-color: #2563eb;
+  height: 100%;
+}
+
+.main-image-area {
+  flex: 1;
+  background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=1471'); 
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  padding: 40px;
+}
+
+/* Glassmorphism Card Overlay */
+.image-card-overlay {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 25px;
+  border-radius: 16px;
+  color: white;
+  max-width: 300px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+.image-card-overlay h3 {
+  margin: 0 0 10px 0;
+  font-size: 1.25rem;
+}
+
+.image-card-overlay p {
+  margin: 0;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+/* RESPONSIVENESS */
+@media (max-width: 1024px) {
+  .welcome-wrapper {
+    flex-direction: column;
+  }
+  .welcome-right {
+    height: 40vh;
+  }
+  .welcome-left {
+    padding: 60px 20px;
+    text-align: center;
+  }
+  .title { font-size: 3rem; }
+  .btn-group { justify-content: center; }
+  .image-accent-bar { display: none; }
+}

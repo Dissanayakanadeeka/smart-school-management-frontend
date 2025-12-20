@@ -1,11 +1,21 @@
-import axios from "axios";
+// In your axios setup file (e.g., api.js)
+import axios from 'axios';
+
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || "http://localhost:8000/api",
-  withCredentials: true  // if using cookies
+  baseURL: "http://localhost:8080/",
+ // Adjust to your API's base URL
+
 });
 
-export async function fetchListings(){
-  const res = await api.get("/auth/login");
-  return res.data;
-}
+// Add interceptor for JWT
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token');
+  console.log("TOKEN:", token);
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
+export default api;
