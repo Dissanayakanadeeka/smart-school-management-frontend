@@ -1,146 +1,187 @@
-/* Import a clean modern font */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
+
+:root {
+  --primary-blue: #2563eb;
+  --accent-yellow: #ffcc4d;
+  --text-dark: #1e293b;
+  --text-light: #64748b;
+  --bg-white: #ffffff;
+}
 
 .welcome-wrapper {
   display: flex;
   height: 100vh;
   width: 100vw;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   overflow: hidden;
-  background-color: #ffffff;
+  background-color: var(--bg-white);
 }
 
 /* LEFT SIDE */
 .welcome-left {
-  flex: 0.8; /* Adjusts width relative to the right side */
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 5%;
-  z-index: 2;
+  padding: 0 8%;
+  background: radial-gradient(circle at 0% 0%, #f8fafc 0%, #ffffff 100%);
 }
 
-.welcome-content {
-  max-width: 550px;
+.badge {
+  background: #dbeafe;
+  color: var(--primary-blue);
+  padding: 6px 16px;
+  border-radius: 100px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  display: inline-block;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .title {
-  font-size: 4rem;
+  font-size: 3.8rem;
   font-weight: 800;
-  color: #1a1a1a;
-  line-height: 1;
-  letter-spacing: -2px;
+  color: var(--text-dark);
+  line-height: 1.1;
   margin-bottom: 24px;
 }
 
-.title span {
-  color: #2563eb; /* The Blue from your logo/UI */
-}
+.title span { color: var(--primary-blue); }
 
 .subtitle {
-  font-size: 1.15rem;
-  color: #4b5563;
-  line-height: 1.7;
+  font-size: 1.1rem;
+  color: var(--text-light);
+  line-height: 1.6;
   margin-bottom: 40px;
+  max-width: 500px;
 }
+
+/* LMS FEATURE ITEMS */
+.lms-features {
+  display: flex;
+  gap: 30px;
+  margin-top: 50px;
+  border-top: 1px solid #f1f5f9;
+  padding-top: 30px;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.icon-blue { color: var(--primary-blue); }
 
 /* BUTTONS */
-.btn-group {
-  display: flex;
-  gap: 15px;
-}
+.btn-group { display: flex; gap: 15px; }
 
 .welcome-btn {
-  padding: 16px 32px;
-  border-radius: 12px;
+  padding: 18px 36px;
+  border-radius: 14px;
   text-decoration: none;
-  font-weight: 600;
-  transition: all 0.2s ease-in-out;
+  font-weight: 700;
+  transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .login-btn {
-  background-color: #ffcc4d; /* Yellow from your screenshot */
-  color: #1a1a1a;
-  box-shadow: 0 10px 15px -3px rgba(255, 204, 77, 0.3);
+  background-color: var(--primary-blue);
+  color: white;
+  box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.4);
 }
 
 .login-btn:hover {
   transform: translateY(-3px);
-  box-shadow: 0 15px 20px -3px rgba(255, 204, 77, 0.4);
+  background-color: #1d4ed8;
 }
 
-.explore-btn {
-  border: 2px solid #e5e7eb;
-  color: #374151;
-}
-
-.explore-btn:hover {
-  background-color: #f9fafb;
-  border-color: #d1d5db;
-}
-
-/* RIGHT SIDE (Filling the empty space) */
+/* RIGHT SIDE */
 .welcome-right {
-  flex: 1.2;
-  display: flex;
-  position: relative;
-}
-
-/* The blue stripe between sides */
-.image-accent-bar {
-  width: 80px;
-  background-color: #2563eb;
-  height: 100%;
+  flex: 1;
+  padding: 30px;
+  background-color: #f8fafc;
 }
 
 .main-image-area {
-  flex: 1;
-  background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=1471'); 
+  height: 100%;
+  width: 100%;
+  border-radius: 30px;
+  background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), 
+                    url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=1470');
   background-size: cover;
   background-position: center;
   position: relative;
+  overflow: hidden;
+}
+
+.floating-card {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  background: white;
+  padding: 12px 20px;
+  border-radius: 12px;
   display: flex;
-  align-items: flex-end;
-  padding: 40px;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
 }
 
-/* Glassmorphism Card Overlay */
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  background: #ef4444;
+  border-radius: 50%;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+}
+
 .image-card-overlay {
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 25px;
-  border-radius: 16px;
-  color: white;
-  max-width: 300px;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  position: absolute;
+  bottom: 40px;
+  left: 40px;
+  right: 40px;
+  
+  /* 1. Reduce opacity for better visibility (0.7 = 70%) */
+  background: rgba(255, 255, 255, 0.7); 
+  
+  /* 2. The blur effect */
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px); /* Required for Safari */
+  
+  /* 3. Aesthetic additions */
+  padding: 30px;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle white border */
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  
+  /* Ensure text remains dark and readable */
+  color: #1e293b; 
 }
 
-.image-card-overlay h3 {
-  margin: 0 0 10px 0;
-  font-size: 1.25rem;
+.progress-bar-demo {
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 10px;
+  margin: 15px 0 5px;
 }
 
-.image-card-overlay p {
-  margin: 0;
-  font-size: 0.9rem;
-  opacity: 0.9;
+.progress-fill {
+  width: 85%;
+  height: 100%;
+  background: var(--primary-blue);
+  border-radius: 10px;
 }
 
-/* RESPONSIVENESS */
-@media (max-width: 1024px) {
-  .welcome-wrapper {
-    flex-direction: column;
-  }
-  .welcome-right {
-    height: 40vh;
-  }
-  .welcome-left {
-    padding: 60px 20px;
-    text-align: center;
-  }
-  .title { font-size: 3rem; }
-  .btn-group { justify-content: center; }
-  .image-accent-bar { display: none; }
-}
+.progress-text { font-size: 0.8rem; color: var(--text-light); font-weight: 600; }

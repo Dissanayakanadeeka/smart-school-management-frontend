@@ -22,6 +22,7 @@ export default function PrincipalDashboard() {
       .get("/teachers/class-status")
       .then((res) => {
         setHasClass(res.data.hasClass);
+        localStorage.setItem("classId", res.data.classId || "");
       })
       .catch((err) => {
         console.error("Failed to load class status", err);
@@ -29,6 +30,8 @@ export default function PrincipalDashboard() {
       })
       .finally(() => setLoading(false));
   }, []);
+
+
 
   // Profile not completed
   if (!profileCompleted) {
@@ -64,21 +67,57 @@ export default function PrincipalDashboard() {
       <p>Welcome, {username}!</p>
 
       {hasClass && (
-        <button
-          onClick={() => navigate("/teacher/my-class")}
-          style={{
-            padding: "10px 20px",
-            background: "green",
-            color: "white",
-            borderRadius: "5px",
-            border: "none",
-            cursor: "pointer",
-            marginTop: "15px"
-          }}
-        >
-          View My Class
-        </button>
-      )}
+  <div style={{ marginTop: "15px" }}>
+    {/* View My Class */}
+    <button
+      onClick={() => navigate("/teacher/my-class")}
+      style={{
+        padding: "10px 20px",
+        background: "green",
+        color: "white",
+        borderRadius: "5px",
+        border: "none",
+        cursor: "pointer",
+        marginRight: "10px"
+      }}
+    >
+      View My Class
+    </button>
+
+    {/* Assign Teachers to Subjects (Class Teacher only) */}
+    <button
+      onClick={() => navigate(`/class/${localStorage.getItem("classId")}/assign-subjects`)}
+      style={{
+        padding: "10px 20px",
+        background: "#6a1b9a",
+        color: "white",
+        borderRadius: "5px",
+        border: "none",
+        cursor: "pointer"
+      }}
+    >
+      Assign Teachers to Subjects
+    </button>
+  </div>
+)}
+
+
+      {/* ✅ NEW BUTTON: View Assigned Subjects */}
+      <button
+        onClick={() => navigate("/teacher/my-subjects")}
+        style={{
+          padding: "10px 20px",
+          background: "#6a1b9a",
+          color: "white",
+          borderRadius: "5px",
+          border: "none",
+          cursor: "pointer",
+          marginTop: "15px",
+          display: "block"
+        }}
+      >
+        My Subjects
+      </button>
     </div>
   );
 }

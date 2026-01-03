@@ -47,7 +47,6 @@ const handleSubmit = async (e) => {
         formData,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json"
           }
         }
