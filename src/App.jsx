@@ -15,27 +15,50 @@ import SubjectPage from "./pages/SubjectPage.jsx";
 import UploadLecturePage from "./pages/UploadLecturePage.jsx";
 import Navbar from "./components/Navbar.jsx";
 import MyCourses from "./pages/MyCourses.jsx";
+import "./App.css";
+import TeacherCreateAssignment from "./pages/TeacherCreateAssignment.jsx";
+import StudentAssignments from "./pages/StudentAssignments.jsx";
+import SubmitAssignment from "./pages/SubmitAssignment.jsx";
+import AssignmentDetails from "./pages/AssignmentDetails.jsx";
 
-export default function App(){
+export default function App() {
   return (
     <BrowserRouter>
-      <Navbar />
       <Routes>
-        <Route path="/" element={<WelcomePage/>}/>
-        <Route path="/login" element={<LoginPage/>}/>
-        <Route path="/dashboard" element={<HomePage/>}/>
-        <Route path="/student-dashboard" element={<StudentDashboard/>}/>
-        <Route path="/teacher-dashboard" element={<TeacherDashboard/>}/>
-        <Route path="/principal-dashboard" element={<PrincipalDashboard/>}/>
-        <Route path="/register" element={<RegistrationPage/>}/>
-        <Route path="/classrooms/create" element={<CreateClassRoom />} />
-        <Route path="/teacher/my-class" element={<ClassRoomPage />} />
-        <Route path="/class/:classId/assign-subjects" element={<AssignSubjects />} />
-        <Route path="/teacher/my-subjects" element={<TeacherAssignments />} />
-        <Route path="/student/subjects/:subjectId/:classId" element={<SubjectPage />} />
-        <Route path="/subjects/:subjectId/upload" element={<UploadLecturePage />} />
-        <Route path="/student/courses" element={<MyCourses />} />
+        <Route path="/" element={<WelcomePage />} />
+        <Route path="/login" element={<LoginPage />} />
+        
+        {/* Catch-all route for authenticated pages */}
+        <Route path="*" element={<NavbarWrapper />} />
       </Routes>
     </BrowserRouter>
+  );
+}
+function NavbarWrapper() {
+  return (
+    <>
+      <Navbar />
+      <div className="page-content">
+        <Routes>
+          <Route path="/dashboard" element={<HomePage />} />
+          <Route path="/student-dashboard" element={<StudentDashboard />} />
+          <Route path="/teacher-dashboard" element={<TeacherDashboard />} />
+          <Route path="/principal-dashboard" element={<PrincipalDashboard />} />
+          <Route path="/register" element={<RegistrationPage />} />
+          <Route path="/classrooms/create" element={<CreateClassRoom />} />
+          <Route path="/teacher/my-class" element={<ClassRoomPage />} />
+          <Route path="/class/:classId/assign-subjects" element={<AssignSubjects />} />
+          <Route path="/teacher/my-subjects" element={<TeacherAssignments />} />
+          <Route path="/student/subjects/:subjectId/:classId" element={<SubjectPage />} />
+          <Route path="/subjects/:subjectId/:classId/upload" element={<UploadLecturePage />} />
+          <Route path="/student/courses" element={<MyCourses />} />
+          <Route path="/teacher/create/:classId/:subjectId" element={<TeacherCreateAssignment />} />
+          <Route path="/student/assignments" element={<StudentAssignments />} />
+          <Route path="/student/submit/:assignmentId" element={<SubmitAssignment />} />
+          <Route path="/assignments/:assignmentId/:classId/:subjectId" element={<AssignmentDetails />}/>
+
+        </Routes>
+      </div>
+    </>
   );
 }

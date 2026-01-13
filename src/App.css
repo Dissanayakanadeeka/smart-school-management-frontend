@@ -40,3 +40,37 @@
 .read-the-docs {
   color: #888;
 }
+/* index.css */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  overflow-x: hidden;
+}
+.page-content {
+  padding: 20px;
+  padding-top: 80px; /* 60px navbar + spacing */
+}
+/* App.css or login.css */
+.auth-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh; /* Fill the viewport */
+  padding: 2rem;
+  background: url('/path-to-background.jpg') no-repeat center center;
+  background-size: cover;
+}
+
+.auth-card {
+  background: rgba(0, 0, 0, 0.6); /* semi-transparent dark background */
+  padding: 3rem;
+  border-radius: 1rem;
+  color: #fff;
+  max-width: 400px;
+  width: 100%;
+}
+

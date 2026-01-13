@@ -53,6 +53,7 @@ export default function Navbar() {
 
 const styles = {
   nav: {
+    width: "100%",              // ❌ NOT 100vw
     height: "60px",
     background: "#1e293b",
     color: "white",
@@ -60,9 +61,10 @@ const styles = {
     alignItems: "center",
     justifyContent: "space-between",
     padding: "0 20px",
-  },
-  logo: {
-    cursor: "pointer",
+    position: "fixed",          // ✅ FIXED
+    top: 0,
+    left: 0,
+    zIndex: 1000,
   },
   right: {
     display: "flex",
@@ -82,3 +84,4 @@ const styles = {
     cursor: "pointer",
   },
 };
+

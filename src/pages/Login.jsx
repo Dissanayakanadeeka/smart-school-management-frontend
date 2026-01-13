@@ -35,6 +35,7 @@ export default function LoginPage() {
   };
 
   return (
+    <div className="auth-page">
     <div className="login-page-wrapper">
       {/* Background Image Layer */}
       <div className="login-bg-image"></div>
@@ -86,5 +87,7 @@ export default function LoginPage() {
         </div>
       </div>
     </div>
+    </div>
+ 
   );
 }

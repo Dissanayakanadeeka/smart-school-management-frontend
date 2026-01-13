@@ -11,8 +11,9 @@ export default function SubjectPage() {
   const token = localStorage.getItem("token");
 
   const [lectures, setLectures] = useState([]);
+  const [assignments, setAssignments] = useState([]);
 
-  // 🔹 Load lectures
+ // 🔹 Load lectures
   useEffect(() => {
     api
       .get(`/lectures/class/${classId}/subject/${subjectId}`)
@@ -20,12 +21,42 @@ export default function SubjectPage() {
       .catch((err) => console.error(err));
   }, [subjectId, classId, token]);
 
+  // 🔹 Load lectures
+useEffect(() => {
+  console.log("Fetching assignments...");
+  api
+    .get(`/assignments/class/${classId}/subject/${subjectId}`)
+    .then((res) => {
+      console.log("Assignments response:", res.data);
+      setAssignments(res.data);
+    })
+    .catch((err) => console.error(err));
+}, [subjectId, classId]);
+
+
+  useEffect(() => {
+  api
+    .get(`/assignments/class/${classId}/subject/${subjectId}`)
+    .then((res) => setAssignments(res.data))
+    .catch((err) => console.error(err));
+}, [subjectId, classId]);
+
+const goToSubmission = (assignmentId) => {
+  navigate(`/student/submit/${assignmentId}/${classId}/${subjectId}`);
+};
+
+
+
   // 🔹 Secure download
   const downloadLecture = async (lectureId, fileName) => {
     try {
-      const response = await api.get(`/lectures/download/${lectureId}`, {
-        responseType: "blob",
-      });
+       const token = localStorage.getItem("token"); // ensure we have it here
+       const response = await api.get(`/lectures/download/${lectureId}`, {
+      responseType: "blob",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement("a");
@@ -59,6 +90,18 @@ export default function SubjectPage() {
             >
               <Upload size={18} /> Upload New Lecture
             </button>
+
+            
+          )}
+          {role === "TEACHER" && (
+            <button
+              className="upload-trigger-btn"
+              onClick={() => navigate(`/teacher/create/${classId}/${subjectId}`)}
+            >
+              <Upload size={18} /> Upload New Assignment
+            </button>
+
+            
           )}
         </div>
       </header>
@@ -91,6 +134,30 @@ export default function SubjectPage() {
           ))
         )}
       </div>
+
+
+      <div className="assignments-section">
+  <h2>Assignments</h2>
+
+  {assignments.length === 0 ? (
+    <p className="empty-text">No assignments available</p>
+  ) : (
+    assignments.map((a) => (
+      <button
+        key={a.id}
+        className="assignment-title-btn"
+        onClick={() =>
+          navigate(`/assignments/${a.id}/${classId}/${subjectId}`)
+        }
+      >
+        <FileText size={16} />
+        {a.title}
+      </button>
+    ))
+  )}
+</div>
+
+
     </div>
   );
 }
