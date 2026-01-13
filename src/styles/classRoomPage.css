@@ -1,0 +1,150 @@
+.classroom-page-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  font-family: 'Inter', sans-serif;
+  color: #1e293b;
+}
+
+/* --- HEADER --- */
+.classroom-back-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  color: #64748b;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: color 0.2s;
+}
+
+.classroom-back-btn:hover {
+  color: #2563eb;
+}
+
+.classroom-title-info h1 {
+  font-size: 2.2rem;
+  margin: 0 0 15px 0;
+}
+
+.classroom-badges {
+  display: flex;
+  gap: 12px;
+}
+
+.badge-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #eff6ff;
+  color: #2563eb;
+  padding: 6px 14px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+/* --- CARD & TABLE --- */
+.student-list-card {
+  background: white;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  margin-top: 30px;
+  overflow: hidden;
+}
+
+.card-header {
+  padding: 25px;
+  border-bottom: 1px solid #f1f5f9;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-header h2 {
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.student-count {
+  background: #f1f5f9;
+  color: #64748b;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+/* --- TABLE STYLING --- */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.student-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.student-table th {
+  background: #f8fafc;
+  padding: 15px 25px;
+  font-size: 0.85rem;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.student-table th svg {
+  vertical-align: middle;
+  margin-bottom: 2px;
+}
+
+.student-table td {
+  padding: 18px 25px;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 0.95rem;
+}
+
+.student-table tr:last-child td {
+  border-bottom: none;
+}
+
+.student-table tr:hover td {
+  background: #f8fafc;
+}
+
+.id-cell {
+  font-family: 'Courier New', monospace;
+  font-weight: 600;
+  color: #64748b;
+}
+
+.name-cell {
+  font-weight: 600;
+  color: #1e293b;
+}
+
+/* --- EMPTY STATE --- */
+.no-students-state {
+  padding: 60px;
+  text-align: center;
+  color: #94a3b8;
+}
+
+.no-students-state svg {
+  margin-bottom: 15px;
+  opacity: 0.5;
+}
+
+/* --- FEEDBACK --- */
+.classroom-loader, .classroom-error {
+  padding: 100px;
+  text-align: center;
+  font-weight: 600;
+}

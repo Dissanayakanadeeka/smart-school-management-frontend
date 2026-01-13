@@ -1,63 +1,33 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import api from "../api";
-import { Download, Upload, ArrowLeft, FileText } from "lucide-react";
+import { Download, PlusCircle, ArrowLeft, FileText, ClipboardList, BookOpen } from "lucide-react";
+import "../styles/subjectPage.css";
 
 export default function SubjectPage() {
   const { subjectId, classId } = useParams();
   const navigate = useNavigate();
-
   const role = localStorage.getItem("role");
-  const token = localStorage.getItem("token");
-
   const [lectures, setLectures] = useState([]);
   const [assignments, setAssignments] = useState([]);
 
- // 🔹 Load lectures
   useEffect(() => {
-    api
-      .get(`/lectures/class/${classId}/subject/${subjectId}`)
+    api.get(`/lectures/class/${classId}/subject/${subjectId}`)
       .then((res) => setLectures(res.data))
       .catch((err) => console.error(err));
-  }, [subjectId, classId, token]);
 
-  // 🔹 Load lectures
-useEffect(() => {
-  console.log("Fetching assignments...");
-  api
-    .get(`/assignments/class/${classId}/subject/${subjectId}`)
-    .then((res) => {
-      console.log("Assignments response:", res.data);
-      setAssignments(res.data);
-    })
-    .catch((err) => console.error(err));
-}, [subjectId, classId]);
+    api.get(`/assignments/class/${classId}/subject/${subjectId}`)
+      .then((res) => setAssignments(res.data))
+      .catch((err) => console.error(err));
+  }, [subjectId, classId]);
 
-
-  useEffect(() => {
-  api
-    .get(`/assignments/class/${classId}/subject/${subjectId}`)
-    .then((res) => setAssignments(res.data))
-    .catch((err) => console.error(err));
-}, [subjectId, classId]);
-
-const goToSubmission = (assignmentId) => {
-  navigate(`/student/submit/${assignmentId}/${classId}/${subjectId}`);
-};
-
-
-
-  // 🔹 Secure download
   const downloadLecture = async (lectureId, fileName) => {
     try {
-       const token = localStorage.getItem("token"); // ensure we have it here
-       const response = await api.get(`/lectures/download/${lectureId}`, {
-      responseType: "blob",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
+      const token = localStorage.getItem("token");
+      const response = await api.get(`/lectures/download/${lectureId}`, {
+        responseType: "blob",
+        headers: { Authorization: `Bearer ${token}` },
+      });
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement("a");
       link.href = url;
@@ -66,98 +36,92 @@ const goToSubmission = (assignmentId) => {
       link.click();
       link.remove();
     } catch (error) {
-      console.error("Download failed", error);
-      alert("❌ Failed to download file");
+      alert("❌ Download failed");
     }
   };
 
   return (
-    <div className="subject-page-container">
-      {/* Header Section */}
-      <header className="subject-header">
-        <button className="back-btn" onClick={() => navigate(-1)}>
-          <ArrowLeft size={20} /> Back to Subjects
+    <div className="subject-page-wrapper">
+      {/* Top Header Section */}
+      <header className="subject-top-bar">
+        <button className="back-nav-btn" onClick={() => navigate(-1)}>
+          <ArrowLeft size={18} /> Back to Dashboard
         </button>
-        <div className="header-flex">
-          <div>
-            <h1>Lecture Materials</h1>
-            <p className="subtitle">Access your study resources and downloads</p>
-          </div>
+        <div className="subject-info-row">
+          <h1>Subject Resources</h1>
           {role === "TEACHER" && (
-            <button
-              className="upload-trigger-btn"
-              onClick={() => navigate(`/subjects/${subjectId}/${classId}/upload`)}
-            >
-              <Upload size={18} /> Upload New Lecture
-            </button>
-
-            
-          )}
-          {role === "TEACHER" && (
-            <button
-              className="upload-trigger-btn"
-              onClick={() => navigate(`/teacher/create/${classId}/${subjectId}`)}
-            >
-              <Upload size={18} /> Upload New Assignment
-            </button>
-
-            
+            <div className="teacher-btn-group">
+              <button className="add-btn secondary" onClick={() => navigate(`/subjects/${subjectId}/${classId}/upload`)}>
+                <PlusCircle size={18} /> Upload Lecture
+              </button>
+              <button className="add-btn primary" onClick={() => navigate(`/teacher/create/${classId}/${subjectId}`)}>
+                <PlusCircle size={18} /> New Assignment
+              </button>
+            </div>
           )}
         </div>
       </header>
 
-      {/* Lecture Content */}
-      <div className="lecture-grid">
-        {lectures.length === 0 ? (
-          <div className="empty-state">
-            <div className="empty-icon">📂</div>
-            <p>No lectures have been uploaded to this subject yet.</p>
-          </div>
-        ) : (
-          lectures.map((l) => (
-            <div key={l.id} className="lecture-card">
-              <div className="file-icon-wrapper">
-                <FileText size={32} className="file-icon" />
+      {/* SECTION 1: LECTURES (On Top) */}
+      <section className="content-block">
+        <div className="block-header">
+          <BookOpen size={20} className="header-icon blue" />
+          <h2>Lectures & Materials</h2>
+          <span className="count-badge">{lectures.length}</span>
+        </div>
+        
+        <div className="lecture-stack">
+          {lectures.length === 0 ? (
+            <div className="empty-state-small">No lectures uploaded yet.</div>
+          ) : (
+            lectures.map((l) => (
+              <div key={l.id} className="lecture-strip">
+                <div className="strip-icon"><FileText size={20} /></div>
+                <div className="strip-details">
+                  <h4>{l.title}</h4>
+                  <p>{l.fileName}</p>
+                </div>
+                <button
+                  className="download-outline-btn"
+                  onClick={() => downloadLecture(l.id, l.fileName)}
+                  title="Download File"
+                >
+                  <Download size={20} strokeWidth={2.5} /> Download PDF
+                </button>
               </div>
-              <div className="lecture-info">
-                <h3>{l.title}</h3>
-                <span className="file-name">{l.fileName}</span>
-              </div>
-              <button
-                className="download-action-btn"
-                onClick={() => downloadLecture(l.id, l.fileName)}
-                title="Download File"
+            ))
+          )}
+        </div>
+      </section>
+
+      {/* SECTION 2: ASSIGNMENTS (Below) */}
+      <section className="content-block">
+        <div className="block-header">
+          <ClipboardList size={20} className="header-icon purple" />
+          <h2>Assignments</h2>
+          <span className="count-badge">{assignments.length}</span>
+        </div>
+
+        <div className="assignment-stack">
+          {assignments.length === 0 ? (
+            <div className="empty-state-small">No assignments assigned.</div>
+          ) : (
+            assignments.map((a) => (
+              <div 
+                key={a.id} 
+                className="assignment-strip"
+                onClick={() => navigate(`/assignments/${a.id}/${classId}/${subjectId}`)}
               >
-                <Download size={20} />
-              </button>
-            </div>
-          ))
-        )}
-      </div>
-
-
-      <div className="assignments-section">
-  <h2>Assignments</h2>
-
-  {assignments.length === 0 ? (
-    <p className="empty-text">No assignments available</p>
-  ) : (
-    assignments.map((a) => (
-      <button
-        key={a.id}
-        className="assignment-title-btn"
-        onClick={() =>
-          navigate(`/assignments/${a.id}/${classId}/${subjectId}`)
-        }
-      >
-        <FileText size={16} />
-        {a.title}
-      </button>
-    ))
-  )}
-</div>
-
-
+                <div className="assignment-title-row">
+                  <div className="status-dot"></div>
+                  <h3>{a.title}</h3>
+                </div>
+                <div className="view-link">View Details <ArrowLeft size={16} style={{transform: 'rotate(180deg)'}} /></div>
+              </div>
+            ))
+          )}
+        </div>
+      </section>
     </div>
   );
 }

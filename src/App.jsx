@@ -38,7 +38,6 @@ function NavbarWrapper() {
   return (
     <>
       <Navbar />
-      <div className="page-content">
         <Routes>
           <Route path="/dashboard" element={<HomePage />} />
           <Route path="/student-dashboard" element={<StudentDashboard />} />
@@ -58,7 +57,7 @@ function NavbarWrapper() {
           <Route path="/assignments/:assignmentId/:classId/:subjectId" element={<AssignmentDetails />}/>
 
         </Routes>
-      </div>
+
     </>
   );
 }

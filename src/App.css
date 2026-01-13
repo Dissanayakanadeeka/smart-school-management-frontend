@@ -1,7 +1,7 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  width: 100%;
+  margin: 0;
+  padding: 0; /* Remove the 2rem padding that pushes everything down */
   text-align: center;
 }
 
@@ -65,12 +65,11 @@ body {
   background-size: cover;
 }
 
-.auth-card {
-  background: rgba(0, 0, 0, 0.6); /* semi-transparent dark background */
-  padding: 3rem;
-  border-radius: 1rem;
-  color: #fff;
-  max-width: 400px;
-  width: 100%;
-}
 
+/* Only add padding to pages that HAVE the navbar */
+.authenticated-container {
+  padding-top: 80px; /* This compensates for the fixed navbar */
+  padding-left: 20px;
+  padding-right: 20px;
+  min-height: 100vh;
+}
