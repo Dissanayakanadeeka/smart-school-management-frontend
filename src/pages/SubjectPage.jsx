@@ -94,7 +94,6 @@ export default function SubjectPage() {
         </div>
       </section>
 
-      {/* SECTION 2: ASSIGNMENTS (Below) */}
       <section className="content-block">
         <div className="block-header">
           <ClipboardList size={20} className="header-icon purple" />
